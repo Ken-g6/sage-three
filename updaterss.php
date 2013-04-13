@@ -1,0 +1,42 @@
+<?php
+require("getrss.php");
+// Get the URL
+if(substr_compare($_GET['url'], "http://", 0, 7) == 0) {
+  // Get the feed from the URL
+  // Save the feed to the md5 of the URL
+  getrss($_GET['url']);
+  // Mark this feed as updated.
+  $IN = fopen("sage3db.txt","r+");
+  $fpos = ftell($IN);
+  while($line = fgets($IN)) {
+    $line = trim($line);
+    # Skip comments and blank lines.
+    if(strlen($line) < 10 || substr_compare($line, "#", 0, 1) == 0) {
+      $fpos = ftell($IN);
+      continue;
+    }
+    $line = explode(",", $line);
+    if($line[3] == $_GET['url']) {
+      $line[0] = "0";
+      $nextupdate = time();
+      $line[1] = date("ymdHi", $nextupdate);
+      fseek($IN, $fpos);
+      fwrite($IN, $line[0].','.$line[1]);
+      fclose($IN);
+      break;
+    }
+    $fpos = ftell($IN);
+  }
+  // Redirect to view the feed.
+  header('Location: viewcachedrss.php?url='.$_GET['url']) ;
+  // TODO: Mark the feed as updated in the other pane.
+} else {
+  header('HTTP/1.0 400 Bad Request');
+?>
+<html><head><title>400 Bad Request</title></head>
+<body><h1>400 Bad Request</h1>
+<p>The URL parameter is not valid.  There's nothing I can do to fix it.</p>
+</body></html>
+<?php
+}
+?>

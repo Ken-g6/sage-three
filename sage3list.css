@@ -1,0 +1,55 @@
+ html { height:100%; }
+ body {
+   background-color: #EFECE8;
+   font-family: sans,sans-serif;
+   font-size:small;
+   overflow:hidden;
+ }
+
+ table {
+   width:100%;
+   height:100%;
+   font-family: sans,sans-serif;
+   font-size:small;
+   overflow:hidden;
+ }
+ td.table-header {
+   /* This just minimizes the height */
+   height:1px;
+ }
+ .sageentries {
+    background-color: #fff;
+    width:100%;
+    height:100%;
+    display:block;
+    border:1px solid #A29587;
+    margin: 10px 2px 30px 0px;
+    overflow:hidden;
+    vertical-align: top;
+ }
+ .sageentries a {
+    margin: 1px 19px 1px 6px;
+    padding-left: 19px;
+    display: block;
+    width: 100%;
+    line-height: 16px;
+    text-decoration:none;
+    color:#000;
+ }
+ .sageentries a:hover {
+   text-decoration:underline;
+ }
+ .sageentries a.unread {
+    background:url(sage3unread.png) top left no-repeat;
+    font-weight: bold;
+ }
+ .sageentries a.read {
+    background:url(sage3read.png) top left no-repeat;
+    font-weight: normal;
+ }
+ .sageentries a.error {
+    background:url(sage3error.png) top left no-repeat;
+    font-weight: normal;
+    margin: 1px 1px 1px 5px;
+    padding-left: 20px;
+ }

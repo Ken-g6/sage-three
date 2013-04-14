@@ -20,7 +20,7 @@ Sage-Three
 <?php
 flush();
 ob_flush();
-require('getrss.php');
+require('getrss.inc');
 $IN = fopen('sage3db.txt','r+');
 $fpos = ftell($IN);
 while($line = fgets($IN)) {

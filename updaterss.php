@@ -1,13 +1,11 @@
 <?php
-require("getrss.php");
+require("getrss.inc");
 // Get the URL
 if(substr_compare($_GET['url'], "http://", 0, 7) == 0) {
-  // Get the feed from the URL
-  // Save the feed to the md5 of the URL
-  getrss($_GET['url']);
   // Mark this feed as updated.
   $IN = fopen("sage3db.txt","r+");
   $fpos = ftell($IN);
+  $linefound = FALSE;
   while($line = fgets($IN)) {
     $line = trim($line);
     # Skip comments and blank lines.
@@ -17,19 +15,33 @@ if(substr_compare($_GET['url'], "http://", 0, 7) == 0) {
     }
     $line = explode(",", $line);
     if($line[3] == $_GET['url']) {
+      // Get the feed from the URL
+      // Save the feed to the md5 of the URL
+      getrss($_GET['url']);
       $line[0] = "0";
       $nextupdate = time();
       $line[1] = date("ymdHi", $nextupdate);
       fseek($IN, $fpos);
       fwrite($IN, $line[0].','.$line[1]);
       fclose($IN);
+      $linefound = TRUE;
       break;
     }
     $fpos = ftell($IN);
   }
-  // Redirect to view the feed.
-  header('Location: viewcachedrss.php?url='.$_GET['url']) ;
-  // TODO: Mark the feed as updated in the other pane.
+  if($linefound) {
+    // Redirect to view the feed.
+    header('Location: viewcachedrss.php?url='.$_GET['url']) ;
+    // TODO: Mark the feed as updated in the other pane.
+  } else {
+    header('HTTP/1.0 403 Forbidden');
+?>
+<html><head><title>403 Forbidden</title></head>
+<body><h1>403 Forbidden</h1>
+<p>The URL parameter is not an allowed feed.</p>
+</body></html>
+<?php
+  }
 } else {
   header('HTTP/1.0 400 Bad Request');
 ?>

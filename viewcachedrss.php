@@ -20,6 +20,10 @@ if (file_exists($filepath)){
 </div></div>
 <div id="feedContent">
 <?php
+  $dns = $_GET['url'];
+  if(strpos($dns, '/', 8)) {
+    $dns = substr($dns, 0, strpos($dns, '/', 8));
+  }
   foreach ($rss->items as $item) {
     $href = $item['link'];
     $title = $item['title'];
@@ -41,6 +45,7 @@ if (file_exists($filepath)){
     //else print_r($item);
     if(isset($author)) $pubdate = "$pubdate by $author";
     $description = $item['description'];
+    $description = str_replace('src="/', 'src="'.$dns.'/', $description);
     if(isset($item['atom_content']) && strlen($item['atom_content']) > strlen($description)) $description = $item['atom_content'];
     echo "<div class=\"entry\"><h3><a target=\"blank\" href=$href>$title</a><div class=\"lastUpdated\">$pubdate</div></h3><div class=\"feedEntryContent\">$description</div></div><div style=\"clear: both;\"></div>";
   }

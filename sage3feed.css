@@ -73,6 +73,7 @@ div.entry {
   #feedTitleContainer {
     margin: 10px 1%;
   }
+}
 div.entry code, div.entry pre {
   overflow: auto;
 }

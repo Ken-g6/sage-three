@@ -45,7 +45,10 @@ if (file_exists($filepath)){
     //else print_r($item);
     if(isset($author)) $pubdate = "$pubdate by $author";
     $description = $item['description'];
+    $description = str_replace('src="//', 'src=http://', $description);
     $description = str_replace('src="/', 'src="'.$dns.'/', $description);
+    $description = str_replace('href="//', 'href=http://', $description);
+    $description = str_replace('href="/', 'href="'.$dns.'/', $description);
     if(isset($item['atom_content']) && strlen($item['atom_content']) > strlen($description)) $description = $item['atom_content'];
     echo "<div class=\"entry\"><h3><a target=\"blank\" href=$href>$title</a><div class=\"lastUpdated\">$pubdate</div></h3><div class=\"feedEntryContent\">$description</div></div><div style=\"clear: both;\"></div>";
   }

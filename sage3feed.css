@@ -60,6 +60,22 @@ div.entry {
   overflow: hidden;
   display: block;
 }
+@media (max-width: 700px) {
+  div.entry {
+    width: 96%;
+  }
+}
+@media (min-width: 1400px) {
+  div.entry {
+    width: 32%;
+    margin-left: 1%;
+  }
+  #feedTitleContainer {
+    margin: 10px 1%;
+  }
+div.entry code, div.entry pre {
+  overflow: auto;
+}
 div.entry + div { display:none; }
 
 div.entry > h3 { margin:0px; }
@@ -90,3 +106,4 @@ p { min-height:1em; }
 div.feedEntryContent * {
   max-width: 100%;
 }
+

@@ -1,6 +1,6 @@
 <?php
 // Try to load the locally cached file.
-$filepath = "rss-cache/".md5($_GET['url']);
+$filepath = "rss-cache/".md5(urldecode($_GET['url']));
 if (file_exists($filepath)){
   header("Content-type: text/xml");
   $IN = fopen($filepath, 'r');

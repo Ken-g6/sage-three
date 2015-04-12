@@ -49,7 +49,7 @@ while($line = fgets($IN)) {
   } else {
     $updated = 1; # Updated, because the line said it was.
   }
-  $urlend = '?url='.$line[3].'">'.$line[2].'</a>';
+  $urlend = '?url='.urlencode($line[3]).'">'.$line[2].'</a>';
   if($updated == 1) {
     #echo "<p>Updated is ".$updated."</p>";
     echo '<a class="unread" target="rssfeed" onclick="control=this;setTimeout(markAsRead,100);window.parent.frames[\'rssfeed\'].focus();return true;" href="updaterss.php'.$urlend;

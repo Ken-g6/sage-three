@@ -106,5 +106,13 @@ div.lastUpdated {
 p { min-height:1em; }
 div.feedEntryContent * {
   max-width: 100%;
+  min-width: 100%;
+  table-layout: fixed;
+}
+div.feedEntryContent img, 
+div.feedEntryContent iframe, 
+div.feedEntryContent blockquote, 
+div.feedEntryContent blockquote * {
+  min-width: 0;
 }
 

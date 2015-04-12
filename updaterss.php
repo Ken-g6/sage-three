@@ -1,7 +1,8 @@
 <?php
 require("getrss.inc");
 // Get the URL
-if(substr_compare($_GET['url'], "http://", 0, 7) == 0) {
+$geturl = urldecode($_GET['url']);
+if(substr_compare($geturl, "http://", 0, 7) == 0) {
   // Mark this feed as updated.
   $IN = fopen("sage3db.txt","r+");
   $fpos = ftell($IN);
@@ -14,10 +15,10 @@ if(substr_compare($_GET['url'], "http://", 0, 7) == 0) {
       continue;
     }
     $line = explode(",", $line);
-    if($line[3] == $_GET['url']) {
+    if($line[3] == $geturl) {
       // Get the feed from the URL
       // Save the feed to the md5 of the URL
-      getrss($_GET['url']);
+      getrss($geturl);
       $line[0] = "0";
       $nextupdate = time();
       $line[1] = date("ymdHi", $nextupdate);
@@ -31,7 +32,7 @@ if(substr_compare($_GET['url'], "http://", 0, 7) == 0) {
   }
   if($linefound) {
     // Redirect to view the feed.
-    header('Location: viewcachedrss.php?url='.$_GET['url']) ;
+    header('Location: viewcachedrss.php?url='.urlencode($geturl)) ;
     // TODO: Mark the feed as updated in the other pane.
   } else {
     header('HTTP/1.0 403 Forbidden');

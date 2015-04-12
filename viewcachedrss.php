@@ -5,7 +5,8 @@ define('MAGPIE_OUTPUT_ENCODING', 'UTF-8');
 define('MAGPIE_CACHE_ON', false);
 
 // Try to load the locally cached file.
-$filepath = "rss-cache/".md5($_GET['url']);
+$dns = urldecode($_GET['url']);
+$filepath = "rss-cache/".md5($dns);
 if (file_exists($filepath)){
   $rss = fetch_rss('http://127.0.0.1'.str_replace("viewcachedrss.php", "readcachedrss.php", $_SERVER['REQUEST_URI']));
 ?>
@@ -20,7 +21,6 @@ if (file_exists($filepath)){
 </div></div>
 <div id="feedContent">
 <?php
-  $dns = $_GET['url'];
   if(strpos($dns, '/', 8)) {
     $dns = substr($dns, 0, strpos($dns, '/', 8));
   }

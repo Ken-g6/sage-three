@@ -5,9 +5,13 @@ Sage-Three is a simple RSS feed parser.  I guess you could call it an aggregator
 
 Why don't I just use Sage, then?  First, because Sage only works in Firefox.  But second, and more importantly, because it doesn't work with an ad blocker.  I hate ads.  Please use an ad blocker with Sage-Three.
 
+System Requirements
+-------------------
+PHP 5.x, with the Tidy package.  (This may be a separate package in your package manager.)
+
 Installation
 ------------
-Place the source code of Sage-Three in a directory readable by your web server.  Visit the index.html page.  Click the link for any feed in the left frame (yes, Sage-Three uses frames) and the feed should appear in the right frame.  Viewing feeds you've viewed before will not reload the feed from the server.To refresh feeds click the refresh button at the top of the left frame.
+Place the source code of Sage-Three in a directory readable by your web server.  Visit the index.html page.  Click the link for any feed in the left frame (yes, Sage-Three uses frames) and the feed should appear in the right frame.  Viewing feeds you've viewed before will not reload the feed from the server.  To refresh feeds click the refresh button at the top of the left frame.
 
 Now for the important stuff.  How do you add a feed?  Edit the sage3db.txt file.  How do you delete a feed?  Edit the sage3db.txt file.  There is no web interface for security reasons.  It has nothing to do with the fact that I'm too lazy to add a web interface.  Yeah, that's my story and I'm sticking to it.
 
@@ -20,7 +24,7 @@ and [Category:GNOME Desktop icons, mimetypes](http://commons.wikimedia.org/wiki/
 
 License
 -------
-Copyright (C) 2013  Ken Brazier
+Copyright (C) 2013-2015  Ken Brazier
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

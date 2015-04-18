@@ -21,27 +21,34 @@ if (file_exists($filepath)){
 </div></div>
 <div id="feedContent">
 <?php
+  $tidy = new Tidy();
   if(strpos($dns, '/', 8)) {
     $dns = substr($dns, 0, strpos($dns, '/', 8));
   }
   foreach ($rss->items as $item) {
     $href = $item['link'];
-    $title = $item['title'];
+    $title = strip_tags($item['title']);
     $pubdate = '';
-    if(isset($item['pubdate'])) $pubdate = $item['pubdate'];
-    elseif(isset($item['published'])) $pubdate = $item['published'];
+    if(isset($item['pubdate'])) $pubdate = strip_tags($item['pubdate']);
+    elseif(isset($item['published'])) $pubdate = strip_tags($item['published']);
     //else print_r($item);
     // Delete duplicate dates: Difficult.
     $pubdate = preg_replace('/T[MTWFS][a-z][a-z], .*/', 'T', $pubdate);
     $dp = strtotime($pubdate,0);
     if(isset($dp) && $dp > 1000) $pubdate = date('m/d/Y h:i A', $dp);
     $author = null;
-    if(isset($item['author'])) $author = $item['author'];
-    elseif(isset($item['author_name'])) {
-      $author = $item['author_name'];
-      if(isset($item['author_uri'])) $author = '<a href="'.$item['author_uri']."\">$author</a>";
+    if(isset($item['author'])) {
+      $author = $item['author'];
+      $author = $tidy->repairString($author, array(), "utf8");
     }
-    elseif(isset($item['dc']['creator'])) $author = $item['dc']['creator'];
+    elseif(isset($item['author_name'])) {
+      $author = strip_tags($item['author_name']);
+      if(isset($item['author_uri'])) $author = '<a href="'.strip_tags($item['author_uri'])."\">$author</a>";
+    }
+    elseif(isset($item['dc']['creator'])) {
+      $author = $item['dc']['creator'];
+      $author = $tidy->repairString($author, array(), "utf8");
+    }
     //else print_r($item);
     if(isset($author)) $pubdate = "$pubdate by $author";
     $description = $item['description'];
@@ -50,6 +57,7 @@ if (file_exists($filepath)){
     $description = str_replace('href="//', 'href=http://', $description);
     $description = str_replace('href="/', 'href="'.$dns.'/', $description);
     if(isset($item['atom_content']) && strlen($item['atom_content']) > strlen($description)) $description = $item['atom_content'];
+    $description = $tidy->repairString($description, array(), "utf8");
     echo "<div class=\"entry\"><h3><a target=\"blank\" href=$href>$title</a><div class=\"lastUpdated\">$pubdate</div></h3><div class=\"feedEntryContent\">$description</div></div><div style=\"clear: both;\"></div>";
   }
   echo "</div></div></body></html>";

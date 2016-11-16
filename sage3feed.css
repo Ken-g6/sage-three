@@ -109,6 +109,9 @@ div.feedEntryContent * {
   min-width: 100%;
   table-layout: fixed;
 }
+div.feedEntryContent img {
+  height: auto !important;
+}
 div.feedEntryContent img, 
 div.feedEntryContent iframe, 
 div.feedEntryContent blockquote, 

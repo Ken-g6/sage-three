@@ -1,4 +1,4 @@
 # Format is: unread (1 or 0), Next scheduled update (yymmddHHii, defaults to date read), name, URL.
 # To add a feed, copy an existing one and modify name and URL.  (The rest must be fixed-width.)
 # To delete a feed, delete its line.
-0,1304131052,Slashdot,http://rss.slashdot.org/Slashdot/slashdot
+1,1304131052,Slashdot,http://rss.slashdot.org/Slashdot/slashdot

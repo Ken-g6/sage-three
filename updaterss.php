@@ -2,7 +2,7 @@
 require("getrss.inc");
 // Get the URL
 $geturl = urldecode($_GET['url']);
-if(substr_compare($geturl, "http://", 0, 7) == 0) {
+if(substr_compare($geturl, "http://", 0, 7) == 0 || substr_compare($geturl, "https://", 0, 8) == 0) {
   // Mark this feed as updated.
   $IN = fopen("sage3db.txt","r+");
   $fpos = ftell($IN);

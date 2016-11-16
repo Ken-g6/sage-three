@@ -6,7 +6,7 @@ function get_web_page( $url, $headers ) {
         CURLOPT_HTTPHEADER     => $headers, // do send certain headers
         CURLOPT_HEADER         => true,     // do return headers 
         CURLOPT_FOLLOWLOCATION => true,     // follow redirects 
-        CURLOPT_USERAGENT      => "php-curl", // who am i 
+        CURLOPT_USERAGENT      => "php-curl", // who am i - used to be "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:41.0) Gecko/20100101 Firefox/41.0"
         CURLOPT_AUTOREFERER    => true,     // set referer on redirect 
         CURLOPT_CONNECTTIMEOUT => 120,      // timeout on connect 
         CURLOPT_TIMEOUT        => 120,      // timeout on response 
@@ -84,7 +84,7 @@ function nocolontags($string) {
   return $string;
 }
 function getrss($url) {
-  if(strlen($url) < 10 || substr_compare($url, 'http://', 0, 7) != 0) return(0);
+  if(strlen($url) < 10 || (substr_compare($url, 'http://', 0, 7) != 0 && substr_compare($url, 'https://', 0, 8) != 0)) return(0);
   $cachefile = 'rss-cache/'.md5($url);
   if(file_exists($cachefile)) {
     $INC = fopen($cachefile,"r");

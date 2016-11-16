@@ -13,6 +13,7 @@ if (file_exists($filepath)){
   #$xml2 = preg_replace("/<description>.*?<\/description>[^a-zA-Z0-9<>]*<content:encoded>(.*?)<\/content:encoded>/s", "<description>$1</description>", $xml);
   #$xml2 = preg_replace("/<description><!.*<\/description>.*<content:encoded>/Us", "<description>", $xml);
   $xml2 = preg_replace("/(<item[ >].*?)<description>.*?<\/description>(.*?)<content:encoded>(.*?)<\/content:encoded>/s", "$1<description>$3</description>$2", $xml);
+  $xml2 = preg_replace("/<category>.*?<\/category>/s", "", $xml2);
   if($xml != $xml2) $xml2 = str_replace("</content:encoded>", "</description>", $xml2);
   if($xml2 == "") $xml2 = $xml;
   $xml2 = preg_replace("/(width|height)=[\"0-9]*/", "", $xml2);

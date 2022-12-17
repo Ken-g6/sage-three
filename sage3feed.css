@@ -12,7 +12,7 @@ html {
 body {
   margin: 0px;
   color: #222;
-  font-family: verdana;
+  font-family: verdana, sans-serif;
   padding:0px;
 }
 
@@ -105,13 +105,23 @@ div.lastUpdated {
 }
 p { min-height:1em; }
 div.feedEntryContent * {
-  max-width: 100%;
-  min-width: 100%;
+  max-width: 100% !important;
   table-layout: fixed;
+}
+/* > * */
+div.feedEntryContent > p:not([style]) {
+  min-width: 100%;
 }
 div.feedEntryContent img {
   height: auto !important;
 }
+div.feedEntryContent > img {
+  min-height: 10vw; /* Test for improved lazy-loading */
+}
+div.feedEntryContent > img[align] {
+  min-height:0;
+}
+
 div.feedEntryContent img, 
 div.feedEntryContent iframe, 
 div.feedEntryContent blockquote, 

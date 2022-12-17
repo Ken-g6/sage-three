@@ -25,6 +25,7 @@ if (file_exists($filepath)){
   if(strpos($dns, '/', 8)) {
     $dns = substr($dns, 0, strpos($dns, '/', 8));
   }
+  $itemcount = 0;
   foreach ($rss->items as $item) {
     $href = $item['link'];
     $title = strip_tags($item['title']);
@@ -52,13 +53,26 @@ if (file_exists($filepath)){
     //else print_r($item);
     if(isset($author)) $pubdate = "$pubdate by $author";
     $description = $item['description'];
-    $description = str_replace('src="//', 'src=http://', $description);
+    $description = str_replace('src="http://', 'src="//', $description);
+    //$description = str_replace('src="//', 'src=https://', $description);
     $description = str_replace('src="/', 'src="'.$dns.'/', $description);
+    $description = str_replace('src="'.$dns.'//', 'src="//', $description);
     $description = str_replace('href="//', 'href=http://', $description);
     $description = str_replace('href="/', 'href="'.$dns.'/', $description);
+    $description = preg_replace('/<iframe[^>]*src="([^"]*)".*?<\/iframe>/m', "<div><a href=\"$1\">IFRAME: $1</a></div>", $description);
+    $description = str_replace('<iframe ', '<div ', $description);
+    $description = str_replace('</iframe>', '</div>', $description);
+    $description = preg_replace('/<script.*?<\/script>/m', "<div>JavaScript deleted</div>", $description);
     if(isset($item['atom_content']) && strlen($item['atom_content']) > strlen($description)) $description = $item['atom_content'];
     $description = $tidy->repairString($description, array(), "utf8");
-    echo "<div class=\"entry\"><h3><a target=\"blank\" href=$href>$title</a><div class=\"lastUpdated\">$pubdate</div></h3><div class=\"feedEntryContent\">$description</div></div><div style=\"clear: both;\"></div>";
+    // Lazy load images.
+    if($itemcount > 2) {
+      $description = str_replace('<img ', '<img loading="lazy" ', $description);
+    }
+    // Hack fix for Ars.
+    $description = str_replace('&quot;"', '"', $description);
+    echo "<div class=\"entry\" data-target=\"$href\"><h3><a target=\"blank\" href=\"$href\">$title</a><div class=\"lastUpdated\">$pubdate</div></h3><div class=\"feedEntryContent\">$description</div></div><div style=\"clear: both;\"></div>";
+    $itemcount++;
   }
   echo "</div></div></body></html>";
 } else {

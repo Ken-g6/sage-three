@@ -13,7 +13,7 @@ function markAsRead() {
 <tr><td class="table-header">
 Sage-Three
 <hr/>
-<a href="javascript:location.reload(true)"><img src="refresh.png" border="0" /></a>
+<a href="javascript:location.reload(true)"><img src="refresh.png.webp" border="0" /></a>
 <hr/>
 </td></tr>
 <tr><td class="sageentries">

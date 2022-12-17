@@ -40,15 +40,15 @@ td.table-header {
   text-decoration:underline;
 }
 .sageentries a.unread {
-  background:url(sage3unread.png) top left no-repeat;
+  background:url(sage3unread.png.webp) top left no-repeat;
   font-weight: bold;
 }
 .sageentries a.read {
-  background:url(sage3read.png) top left no-repeat;
+  background:url(sage3read.png.webp) top left no-repeat;
   font-weight: normal;
 }
 .sageentries a.error {
-  background:url(sage3error.png) top left no-repeat;
+  background:url(sage3error.png.webp) top left no-repeat;
   font-weight: normal;
   margin: 1px 1px 1px 5px;
   padding-left: 20px;
